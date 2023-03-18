@@ -1,0 +1,4 @@
+version: '3.9'
+services:
+  ecommerce_first_task:
+    build: .
