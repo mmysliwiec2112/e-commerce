@@ -1,3 +1,3 @@
 package models
 
-case class CartItem(id: Int, elements: List[String], sumOfPrices: Long)
+case class CartItem(id: Int, elements: List[Int])

@@ -6,13 +6,14 @@ import play.api.mvc._
 
 import javax.inject._
 import scala.collection.mutable
-import scala.concurrent.{ExecutionContext, Future}
 
 
 @Singleton
 class ProductController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
-  private var product = new mutable.ListBuffer[ProductItem]()
+  implicit var product = new mutable.ListBuffer[ProductItem]()
   product += ProductItem(0, "ksiazka", "ksiazka o ksiazkach", 15)
+  product += ProductItem(1, "ksiazka2", "ksiazka o ksiazkach 2", 15)
+  product += ProductItem(2, "ksiazka3", "ksiazka o ksiazkach 3", 15)
   implicit var productJson: OFormat[ProductItem] = Json.format[ProductItem]
   implicit val newProductJson: OFormat[NewProductItem] = Json.format[NewProductItem]
 
@@ -32,7 +33,7 @@ class ProductController @Inject()(val controllerComponents: ControllerComponents
     }
   }
 
-  def updateProduct(productId: Int, productPrice: Int): Action[AnyContent] = Action {
+  def update(productId: Int, productPrice: Int): Action[AnyContent] = Action {
     val foundProduct = product.find(_.id == productId)
     foundProduct match {
       case Some(item) =>
@@ -57,7 +58,7 @@ class ProductController @Inject()(val controllerComponents: ControllerComponents
     }
   }
 
-  def addNewProduct(): Action[AnyContent] = Action { implicit request =>
+  def addNew(): Action[AnyContent] = Action { implicit request =>
     val content = request.body
     val jsonObject = content.asJson
     val productItem: Option[NewProductItem] =

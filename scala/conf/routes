@@ -3,25 +3,25 @@
 # https://www.playframework.com/documentation/latest/ScalaRouting
 # ~~~~
 
-GET           /                                              controllers.HomeController.index
+GET           /                                                     controllers.HomeController.index
 
 # CRUD for the product
-GET           /product                                       controllers.ProductController.getAll
-PUT           /product/edit/:productId/:productPrice         controllers.ProductController.updateProduct(productId: Int, productPrice: Int)
-DELETE        /product/delete/:productId                     controllers.ProductController.delete(productId: Int)
-POST          /product/add                                   controllers.ProductController.addNewProduct
+GET           /product                                              controllers.ProductController.getAll()
+PUT           /product/edit/:productId/:productPrice                controllers.ProductController.update(productId: Int, productPrice: Int)
+DELETE        /product/delete/:productId                            controllers.ProductController.delete(productId: Int)
+POST          /product/add                                          controllers.ProductController.addNew()
 
 # CRUD for the cart
-GET           /cart                                          controllers.ProductController.getAll
-PUT           /cart/edit/:productId/:productPrice            controllers.ProductController.updateProduct(productId: Int, productPrice: Int)
-DELETE        /cart/delete/:productId                        controllers.ProductController.delete(productId: Int)
-POST          /cart/add                                      controllers.ProductController.addNewProduct
+GET           /cart                                                 controllers.CartController.getAll()
+PUT           /cart/edit/:cartId/:oldProductId/:newProductId        controllers.CartController.update(cartId: Int, oldProductId: Int, newProductId: Int)
+DELETE        /cart/delete/:cartId                                  controllers.CartController.delete(cartId: Int)
+POST          /cart/add                                             controllers.CartController.addNew()
 
 # CRUD for the shopping category
-GET           /category                                      controllers.ProductController.getAll
-PUT           /category/edit/:productId/:productPrice        controllers.ProductController.updateProduct(productId: Int, productPrice: Int)
-DELETE        /category/delete/:productId                    controllers.ProductController.delete(productId: Int)
-POST          /category/add                                  controllers.ProductController.addNewProduct
+GET           /category                                             controllers.CategoryController.getAll()
+PUT           /category/edit/:categoryId/:oldName/:newName           controllers.CategoryController.update(categoryId: Int, oldName: String, newName: String)
+DELETE        /category/delete/:categoryId                          controllers.CategoryController.delete(categoryId: Int)
+POST          /category/add                                         controllers.CategoryController.addNew()
 
 # Map static resources from the /public folder to the /assets URL path
-GET           /assets/*file                                  controllers.Assets.versioned(path="/public", file: Asset)
+GET           /assets/*file                                         controllers.Assets.versioned(path="/public", file: Asset)

@@ -1,3 +1,3 @@
 package models
 
-case class CategoryItem (id: Int, bookTypes: List[String])
+case class CategoryItem (id: Int, name: String, elements: List[String])
