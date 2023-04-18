@@ -1,0 +1,3 @@
+commmands:
+!help
+!ping
