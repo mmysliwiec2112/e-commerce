@@ -19,9 +19,10 @@ POST          /cart/add                                             controllers.
 
 # CRUD for the shopping category
 GET           /category                                             controllers.CategoryController.getAll()
-PUT           /category/edit/:categoryId/:oldName/:newName           controllers.CategoryController.update(categoryId: Int, oldName: String, newName: String)
+PUT           /category/edit/:categoryId/:oldName/:newName          controllers.CategoryController.update(categoryId: Int, oldName: String, newName: String)
 DELETE        /category/delete/:categoryId                          controllers.CategoryController.delete(categoryId: Int)
 POST          /category/add                                         controllers.CategoryController.addNew()
 
+PUT           /payment                                              controllers.CartController.paymentInfo()
 # Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file                                         controllers.Assets.versioned(path="/public", file: Asset)

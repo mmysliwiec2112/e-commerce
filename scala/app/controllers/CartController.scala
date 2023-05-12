@@ -82,4 +82,12 @@ class CartController @Inject()(val controllerComponents: ControllerComponents) e
   }
 
   case class NewCartItem(id: Int, elements: List[Int])
+
+  def paymentInfo(): Action[AnyContent] = Action { implicit request =>
+    val content = request.body
+    val jsonObject = content.asJson
+    System.out.print(jsonObject)
+    
+    Created(Json.toJson(jsonObject))
+  }
 }
