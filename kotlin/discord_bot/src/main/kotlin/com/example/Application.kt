@@ -12,7 +12,7 @@ import dev.kord.gateway.PrivilegedIntent
 import java.io.File
 
 suspend fun main() {
-    val kord = Kord("MTA5NzUxNTU3MzI5MTc5NDYwMg.G6j-CI.E-czvnWSCWb_4Q5Tt9l_ZEh8_Le52XhO6EbnIU")
+    val kord = Kord("your_token")
     val categoriesList = listOf<Category>(
         Category(1, "Science-fiction", listOf("Solaris", "Space Oddysey", "Space Trilogy")),
         Category(2, "Philosophy", listOf("Republic", "Leviathan", "Either-Or")),

@@ -1,5 +1,5 @@
 import { useState } from "react";
-function Platnosci() {
+function PaymentComponent() {
     const [formData, setFormData] = useState({
         name: "",
         cardNumber: "",
@@ -57,4 +57,4 @@ function Platnosci() {
     );
 }
 
-export { Platnosci };
+export { PaymentComponent };

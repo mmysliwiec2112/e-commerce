@@ -1,7 +1,8 @@
-import { Fragment, useState, useEffect } from "react";
+import {useState, useEffect, Fragment, useContext} from "react";
+import {cartContext} from "../context/CartContextProvider";
 
-// eslint-disable-next-line react/prop-types
-function Produkty({addToCart}) {
+function ProductComponent() {
+    const context = useContext(cartContext);
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -10,10 +11,9 @@ function Produkty({addToCart}) {
             const data = await response.json();
             setProducts(data);
         }
-        fetchData();
+
+        fetchData().catch();
     }, []);
-
-
 
     const handleSubmit = async (event, product) => {
         event.preventDefault();
@@ -25,27 +25,26 @@ function Produkty({addToCart}) {
             },
         });
         const data = await response.json();
-        console.log(data);
-        addToCart(product);
+        context.addProductToCart(data)
+        console.log(context.cart);
     };
 
     return (
-        <Fragment>
-            <h1>Lista produktów:</h1>
+        <Fragment><h1>Lista produktów:</h1>
             <ul>
                 {products.map((product) => (
                     <li key={product.id}>
                         {product.title}: {product.price} PLN - {product.description}
-                        <br />
+                        <br/>
                         <button onClick={(event) => handleSubmit(event, product)}>
                             Dodaj do koszyka
                         </button>
                     </li>
                 ))}
             </ul>
-
         </Fragment>
+
     );
 }
 
-export {Produkty}
+export {ProductComponent};
