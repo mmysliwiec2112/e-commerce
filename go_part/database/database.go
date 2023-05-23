@@ -1,12 +1,13 @@
 package database
 
 import (
+	"database/sql"
 	"go_part/database/models"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
-func Connect() *gorm.DB {
+func Connect() *sql.DB {
 	db, err := gorm.Open(sqlite.Open("database.db"))
 	if err != nil {
 		panic("Database does not open")
@@ -16,5 +17,11 @@ func Connect() *gorm.DB {
 	if err != nil {
 		panic("Migration failed")
 	}
-	return db
+
+	db2, err := db.DB()
+	if err != nil {
+		panic("Conversion failed")
+	}
+
+	return db2
 }

@@ -8,12 +8,16 @@ import (
 
 func main() {
 	db := database.Connect()
-	echo_var := echo.New()
-	defer db.Close()
+	echoVar := echo.New()
 
-	routes.ProductRoutes(echo_var)
-	err := echo_var.Start(":8080")
+	routes.ProductRoutes(echoVar)
+	err := echoVar.Start(":8080")
 	if err != nil {
 		return
+	}
+
+	err = db.Close()
+	if err != nil {
+		panic("Closing database failed")
 	}
 }

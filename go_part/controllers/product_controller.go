@@ -34,8 +34,7 @@ func (prodCtrl *ProductController) GetProduct(context echo.Context) error {
 func (prodCtrl *ProductController) UpdateProduct(context echo.Context) error {
 	var currentProduct models.Product
 	var product models.Product
-	err := context.Bind(&product)
-	if err != nil {
+	if err := context.Bind(&product); err != nil {
 		return context.JSON(http.StatusNotFound, "Error")
 	}
 	id, err2 := strconv.Atoi(context.Param("id"))
