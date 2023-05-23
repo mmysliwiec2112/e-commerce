@@ -87,7 +87,7 @@ class CartController @Inject()(val controllerComponents: ControllerComponents) e
     val content = request.body
     val jsonObject = content.asJson
     System.out.print(jsonObject)
-    
+
     Created(Json.toJson(jsonObject))
   }
 }
