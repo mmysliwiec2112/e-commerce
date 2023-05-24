@@ -9,7 +9,6 @@ import dev.kord.core.event.message.MessageCreateEvent
 import dev.kord.core.on
 import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
-import java.io.File
 
 suspend fun main() {
     val kord = Kord("your_token")
@@ -38,9 +37,9 @@ suspend fun main() {
             val result = regex.find(message.content)
 
             if (result != null){
-                val q_name = result.groupValues[1]
-                var category = categoriesList.find { it.name == q_name }
-                message.channel.createMessage("List of items in category $q_name:\n ${category?.books}")
+                val categoryName = result.groupValues[1]
+                var category = categoriesList.find { it.name == categoryName }
+                message.channel.createMessage("List of items in category $categoryName:\n ${category?.books}")
             }
             else message.channel.createMessage("Wrong category")
         }

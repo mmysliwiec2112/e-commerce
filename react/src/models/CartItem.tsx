@@ -5,5 +5,5 @@ export interface CartItem {
 export interface CartItemList<TItemType extends CartItem> {
     item: TItemType
 
-    price: number
+    quantity: number[]
 }

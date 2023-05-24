@@ -1,8 +1,7 @@
 import {useState, useEffect, Fragment, useContext} from "react";
-import {cartContext} from "../context/CartContextProvider";
-
+import {CartContext} from "../context/CartContext";
 function ProductComponent() {
-    const context = useContext(cartContext);
+    const context = useContext(CartContext);
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -25,8 +24,9 @@ function ProductComponent() {
             },
         });
         const data = await response.json();
+        console.log(data);
         context.addProductToCart(data)
-        console.log(context.cart);
+        console.log(context.cart.map((product) => {console.log(product)}))
     };
 
     return (

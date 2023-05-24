@@ -1,11 +1,12 @@
 import {CartItem, CartItemList} from "../models/CartItem";
 import {createContext} from "react";
+import {ProductItem} from "../models/ProductItem";
 
 export interface CartContextType<TItemType extends CartItem> {
 
-    cart: CartItemList<TItemType>[]
+    cart: ProductItem[]
 
-    addProductToCart: (item: CartItemList<TItemType>) => void
+    addProductToCart: (item: ProductItem) => void
 
     removeProductFromCart: (item: TItemType) => void
 }
@@ -15,6 +16,4 @@ const defaultContext: CartContextType<any> = {
     addProductToCart: () => {},
     removeProductFromCart: () => {}
 }
-export function CreateCartContext<TItemType extends CartItem>() {
-    return createContext < CartContextType < TItemType >> (defaultContext)
-}
+export const CartContext = createContext<CartContextType<ProductItem>>(defaultContext)

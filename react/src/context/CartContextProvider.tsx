@@ -1,5 +1,5 @@
 import {CartItem, CartItemList} from "../models/CartItem";
-import {CartContextType, CreateCartContext} from "./CartContext";
+import {CartContextType, CartContext} from "./CartContext";
 import {HTMLAttributes, useState} from "react";
 import {ProductItem} from "../models/ProductItem";
 
@@ -9,40 +9,39 @@ export type CartContextProps<TItemType extends CartItem> = {
 
 export function CartContextProvider<TItemType extends CartItem>({
                                                                     children,
-                                                                    context
-                                                                }: CartContextProps<TItemType>) {
-    const [products, setProducts] = useState<CartItemList<TItemType> []>([])
-    const getProductById = (id: string): CartItemList<TItemType> | undefined => {
-        return products.find(p => p.item.id === id)
+                                                                }) {
+    const [cart, setCart] = useState<ProductItem[]>([])
+    const getProductById = (product: ProductItem): ProductItem | undefined => {
+        return cart.find((p) => p.id === product.id)
     }
-    const addProductToCart = (product: CartItemList<TItemType>): void => {
+    const addProductToCart = (product: ProductItem): void => {
         {
-            const existingProduct = product
-            let newState: ({ item: any; price: any } | CartItemList<TItemType>)[] = []
+            console.log(product)
+            const existingProduct = getProductById(product)
             if (existingProduct) {
-                newState = products.map((newProduct) => {
-                    if (newProduct.item.id === existingProduct.item.id) {
-                        return {
-                            item: newProduct.item,
-                            price: newProduct.price,
-                        }
-                    }
-                    return newProduct
-                })
-                setProducts(newState)
+                setCart((prevItems) =>
+                    prevItems.map((item) =>
+                    item.id === product.id
+                        ? { ...item, quantity: + 1 }
+                        : item
+                )
+            )
+            } else {
+                setCart((items) => [...items, {...product, quantity: 1}])
             }
-            setProducts([...products, product])
+
         }
     }
     const removeProductFromCart = (product: TItemType) => {
-        const newProducts = products.filter(p => p.item.id !== product.id)
-        setProducts(newProducts)
+        const newProducts = cart.filter(p => p.id !== product.id)
+        setCart(newProducts)
     }
     const contextValue: CartContextType<TItemType> = {
-        cart: products,
+        cart: cart,
         addProductToCart,
         removeProductFromCart
     }
-    return <context.Provider value={contextValue}>{children}</context.Provider>
+    return <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
 }
-export const cartContext = CreateCartContext<ProductItem>();
+
+export default CartContextProvider

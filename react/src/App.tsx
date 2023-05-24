@@ -2,22 +2,21 @@ import './App.css'
 import {PaymentComponent} from "./components/PaymentComponent";
 import {BrowserRouter, Link, Route, Routes} from 'react-router-dom';
 import {ProductComponent} from "./components/ProductComponent";
-import {Fragment, useContext} from "react";
+import {useContext} from "react";
 import {CartContextProvider} from "./context/CartContextProvider";
-import {cartContext} from "./context/CartContextProvider";
-
+import {CartContext} from "./context/CartContext";
+import {CartComponent} from "./components/CartComponent";
 const MockCartDisplay = () => {
-    const context = useContext(cartContext);
-
+    const context = useContext(CartContext);
     return (
         <div>
             <h2>Cart:</h2>
             {context.cart.map((cartItem, index) => {
                 return (
                     <div key={index}>
-                        <h2>{cartItem.item.title}</h2>
-                        <p> {cartItem.item.price}</p>
-                        <button onClick={() => context.removeProductFromCart(cartItem.item)}>
+                        <h2>{cartItem.title}</h2>
+                        <p> {cartItem.price}</p>
+                        <button onClick={() => context.removeProductFromCart(cartItem)}>
                             Remove from Cart
                         </button>
                     </div>
@@ -29,23 +28,25 @@ const MockCartDisplay = () => {
 
 function App() {
     return (
-        <div>
+        <CartContextProvider>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={
-                        <Fragment> <ProductComponent/>
+                        <> <ProductComponent/>
                             <div>
                                 <Link to={"/koszyk"}>Koszyk</Link>
                             </div>
-                        </Fragment>}/>
-                    <Route path="/koszyk" element={<CartContextProvider context={cartContext}>
-                        <MockCartDisplay/>
-                    </CartContextProvider>}/>
+                        </>}/>
+                    <Route path="/koszyk" element={
+                        <>
+                        <CartComponent/>
+                        {/*<MockCartDisplay/>*/}
+                        </>
+                    }/>
                     <Route path="/platnosci" element={<PaymentComponent/>}/>
                 </Routes>
-
             </BrowserRouter>
-        </div>
+        </CartContextProvider>
     );
 }
 

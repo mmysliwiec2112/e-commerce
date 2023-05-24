@@ -8,6 +8,8 @@ import (
 	"strconv"
 )
 
+const error_str_to_int = "Error converting string to int"
+
 type ProductController struct {
 	db *gorm.DB
 }
@@ -22,7 +24,7 @@ func (prodCtrl *ProductController) GetProduct(context echo.Context) error {
 	var product models.Product
 	id, err := strconv.Atoi(context.Param("id"))
 	if err != nil {
-		panic("Error converting string to int")
+		panic(error_str_to_int)
 	}
 	prodCtrl.db.First(&product, id)
 	if product.ID == 0 {
@@ -39,7 +41,7 @@ func (prodCtrl *ProductController) UpdateProduct(context echo.Context) error {
 	}
 	id, err2 := strconv.Atoi(context.Param("id"))
 	if err2 != nil {
-		panic("Error converting string to int")
+		panic(error_str_to_int)
 	}
 	prodCtrl.db.First(&currentProduct, id)
 	if currentProduct.ID == 0 {
@@ -54,7 +56,7 @@ func (prodCtrl *ProductController) DeleteProduct(context echo.Context) error {
 	var product models.Product
 	id, err := strconv.Atoi(context.Param("id"))
 	if err != nil {
-		panic("Error converting string to int")
+		panic(error_str_to_int)
 	}
 	prodCtrl.db.First(&product, id)
 	if product.ID == 0 {
