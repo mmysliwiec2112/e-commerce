@@ -7,6 +7,8 @@ export type CartContextProps<TItemType extends CartItem> = {
     context: React.Context<CartContextType<TItemType>>
 } & HTMLAttributes<HTMLDivElement>
 
+
+
 export function CartContextProvider<TItemType extends CartItem>({
                                                                     children,
                                                                 }) {
@@ -29,8 +31,9 @@ export function CartContextProvider<TItemType extends CartItem>({
             } else {
                 setCart((items) => [...items, {...product, quantity: 1}])
             }
-
+            console.log(`cart: ${cart.map((item) => {console.log(item)})}`)
         }
+
     }
     const removeProductFromCart = (product: TItemType) => {
         const newProducts = cart.filter(p => p.id !== product.id)
@@ -44,4 +47,4 @@ export function CartContextProvider<TItemType extends CartItem>({
     return <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
 }
 
-export default CartContextProvider
+// export default CartContext
