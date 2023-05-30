@@ -21,7 +21,6 @@ function CartComponent() {
             })}
         </div>
     )
-
 }
 
 export {CartComponent}

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ ! -f ktlint ]
+then
+    printf "download ktlint, with f. ex. this command: curl -sSLO https://github.com/shyiko/ktlint/releases/download/0.29.0/ktlint"
+    exit 1
+fi
+
+changed_kotlin_files=$(git diff --cached --name-only --diff-filter=ACMR | grep ".*kt$" )
+ktlint $changed_kotlin_files

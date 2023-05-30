@@ -40,7 +40,7 @@ function App() {
                     <Route path="/koszyk" element={
                         <>
                         <CartComponent/>
-                        {/*<MockCartDisplay/>*/}
+                        <MockCartDisplay/>
                         </>
                     }/>
                     <Route path="/platnosci" element={<PaymentComponent/>}/>
