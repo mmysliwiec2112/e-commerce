@@ -5,7 +5,7 @@ import discord
 from dotenv import load_dotenv
 
 load_dotenv()
-token = os.getenv('MTEyMDgxMjk0OTk4OTI0NTAxMA.GkFp78.7koYT-_LC425MFNtaBIOtsYJ_NbkfzisAldUqo')
+token = os.getenv('your token here')
 gpt_model = gpt4all.GPT4All("ggml-gpt4all-j-v1.3-groovy")
 
 client = discord.Client()
