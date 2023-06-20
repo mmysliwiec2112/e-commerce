@@ -4,16 +4,26 @@ import os
 import discord
 from dotenv import load_dotenv
 
-load_dotenv()
-token = os.getenv('your token here')
-gpt_model = gpt4all.GPT4All("ggml-gpt4all-j-v1.3-groovy")
 
-client = discord.Client()
+load_dotenv()
+gpt_model = gpt4all.GPT4All("GPT4All-13B-snoozy.ggmlv3.q4_0.bin")
+
+
+intents = discord.Intents.default()
+intents.message_content = True
+client = discord.Client(intents=intents)
 
 
 @client.event
 async def on_ready():
-    print(f'{gpt_model.chat_completion([{"role": "user", "content": "Name 3 products"}])}')
-          
-client.run(token)
+    print('bot ready!')
 
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+       
+    response = gpt_model.chat_completion([{"role": "user", "content": str(message.content)}])
+    await message.channel.send(response['choices'][0]['message']['content'])
+
+client.run('token')
